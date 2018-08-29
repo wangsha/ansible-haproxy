@@ -35,13 +35,6 @@
     update_cache: yes
   when: ansible_distribution_release == 'wheezy' or ansible_distribution_release == 'jessie'
 
-- name: 'Add haproxy apt repo (Ubuntu)'
-  apt_repository:
-    repo: "ppa:vbernat/haproxy-1.5"
-    state: present
-    update_cache: yes
-  when: ansible_distribution == "Ubuntu"
-
 - name: Install HAProxy (yum)
   yum:
     name: "{{ haproxy_package_name }}"
@@ -62,6 +55,7 @@
 - name: Install HAProxy (Ubuntu)
   package:
     name: "{{ haproxy_package_name }}"
+    state: latest
   when: ansible_distribution == 'Ubuntu'
 
 - name: Install supplementary packages
